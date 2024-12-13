@@ -17,3 +17,5 @@ jobs:
       - name: What is go version
         run:  |
           go version
+          ls
+          go test
