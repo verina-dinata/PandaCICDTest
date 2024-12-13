@@ -1,0 +1,35 @@
+name: My Panda CI
+on:
+  push:
+    branches: [main]
+
+jobs:
+  builds:
+    runs-on: ubuntu-latest
+    name: my build
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5.2.0
+        with: 
+          go-version: 1.20.0
+      - name: What is go version in this one
+        run:  |
+          go version
+          ls
+          go test -cover
+
+      - name: Checkout private repo remotely
+        uses: actions/checkout@v4
+        with :
+          repositoyry: verina-dinata/PandaHiddenRepo
+          path: hiddenFolder
+          token: ${{ secrets.PANDA_TOKEN }}
+
+      - name: List out hidden things
+        run: |
+          ls
+          cd hiddenFolder
+          ls
+          cd ..
